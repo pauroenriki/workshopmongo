@@ -36,4 +36,13 @@ public class UserService {
 	public void delete(String id) {
 		repo.deleteById(id); 
 	}
+	
+	public UserDTO update(User user) {
+		Optional<User> obj = repo.findById(user.getId());
+		if(obj.isPresent()) {
+			return new UserDTO(repo.save(user));
+		}else {
+			throw new IllegalArgumentException("Erro ao tentar alterar registro.");
+		}
+	}
 }
